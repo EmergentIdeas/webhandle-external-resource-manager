@@ -1,5 +1,4 @@
-/** import "./resource.mjs" */
-
+import createAttributes from "./create-attributes.mjs"
 export default function createTextCssRenderer(webhandle) {
 	function renderTextCss(resource) {
 		
@@ -10,10 +9,7 @@ export default function createTextCssRenderer(webhandle) {
 		
 		let html = `<link href="${vrsc}${resource.url}" rel="stylesheet" `
 
-		html += Object.entries(resource.attributes).map(entries => {
-			return entries[0] + '="' + entries[1] + '"'
-		}).join(' ')
-
+		html += createAttributes(resource.attributes)
 		html += '/>'
 		return html
 	}

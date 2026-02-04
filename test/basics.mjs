@@ -23,8 +23,19 @@ test("basic tests", async (t) => {
 		assert.equal(cssRender(resource), '<link href="/vrsc/1234/css/pages.css" rel="stylesheet" />', 'Rendered html did not match')
 		
 		resource.cachable = false
-
 		assert.equal(cssRender(resource), '<link href="/css/pages.css" rel="stylesheet" />', 'Rendered html did not match')
 
+		resource.cachable = true
+		webhandle.development = true
+		assert.equal(cssRender(resource), '<link href="/css/pages.css" rel="stylesheet" />', 'Rendered html did not match')
+
+		resource.attributes.type = 'img/png'
+		assert.equal(cssRender(resource), '<link href="/css/pages.css" rel="stylesheet" type="img/png"/>', 'Rendered html did not match')
+
+		resource.attributes.defer = null
+		assert.equal(cssRender(resource), '<link href="/css/pages.css" rel="stylesheet" type="img/png" defer/>', 'Rendered html did not match')
+
+		resource.attributes.defer = undefined
+		assert.equal(cssRender(resource), '<link href="/css/pages.css" rel="stylesheet" type="img/png" defer/>', 'Rendered html did not match')
 	})
 })
