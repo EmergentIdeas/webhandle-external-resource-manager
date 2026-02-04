@@ -1,0 +1,24 @@
+{
+  "name": "@webhandle/external-resource-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmergentIdeas/webhandle-external-resource-manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/EmergentIdeas/webhandle-external-resource-manager/issues"
+  },
+  "homepage": "https://github.com/EmergentIdeas/webhandle-external-resource-manager#readme",
+  "dependencies": {
+    "@webhandle/initialize-webhandle-component": "github:EmergentIdeas/webhandle-initialize-webhandle-component"
+  }
+}
