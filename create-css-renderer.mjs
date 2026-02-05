@@ -1,4 +1,5 @@
 import createAttributes from "./create-attributes.mjs"
+import escapeAttributeValue from "./escape-attribute-value.mjs"
 export default function createTextCssRenderer(webhandle) {
 	function renderTextCss(resource) {
 		
@@ -7,7 +8,7 @@ export default function createTextCssRenderer(webhandle) {
 			vrsc = '/vrsc/' + webhandle.resourceVersion
 		}
 		
-		let html = `<link href="${vrsc}${resource.url}" rel="stylesheet" `
+		let html = `<link href="${vrsc}${escapeAttributeValue(resource.url)}" rel="stylesheet" `
 
 		html += createAttributes(resource.attributes)
 		html += '/>'

@@ -7,6 +7,17 @@ export default class Resource {
 	mimeType
 	
 	/**
+	 * This might be a sub-type or some sort of indication of how to handle this
+	 * resource
+	 */
+	resourceType
+	
+	/**
+	 * The name by which this resource is known, if there is one
+	 */
+	name
+	
+	/**
 	 * The URL of the resource
 	 */
 	url
