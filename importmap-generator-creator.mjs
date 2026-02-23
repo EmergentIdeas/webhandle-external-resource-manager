@@ -12,7 +12,12 @@ export default function createImportmapGenerator(webhandle) {
 			found = true
 			let vrsc = ''
 			if(!webhandle.development && resource.cachable) {
-				vrsc = '/vrsc/' + webhandle.resourceVersion
+				if(resource.url.startsWith('data:')) {
+					// We don't want to prefix a data url
+				}
+				else {
+					vrsc = '/vrsc/' + webhandle.resourceVersion
+				}
 			}
 			if (resource.mimeType === 'application/javascript' && resource.resourceType === 'module') {
 				imports[resource.name] = vrsc + resource.url

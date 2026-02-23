@@ -44,6 +44,18 @@ test("importmaps", async (t) => {
 </script>`
 			, 'Text does not match.'
 		)
+		
+		
+		webhandle.development = false
+		rOne.url = "data:text/javascript;charset=utf-8;base64,ZXhwb3J0IGRlZmF1bHQgeyJwdWJsaWNGaWxlc1ByZWZpeCI6Ii9Ad2ViaGFuZGxlL21hdGVyaWFsLWljb25zL2ZpbGVzIn0="
+		importMap = generator(manager)
+		
+		assert.equal(importMap,
+`<script type="importmap">
+{"imports":{"@webhandle/moduleone":"data:text/javascript;charset=utf-8;base64,ZXhwb3J0IGRlZmF1bHQgeyJwdWJsaWNGaWxlc1ByZWZpeCI6Ii9Ad2ViaGFuZGxlL21hdGVyaWFsLWljb25zL2ZpbGVzIn0="}}
+</script>`
+			, 'Text does not match.'
+		)
 
 	})
 })
