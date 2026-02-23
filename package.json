@@ -1,6 +1,6 @@
 {
 	"name": "@webhandle/external-resource-manager",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "",
 	"main": "external-resource-manager.js",
 	"scripts": {

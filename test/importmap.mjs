@@ -57,5 +57,13 @@ test("importmaps", async (t) => {
 			, 'Text does not match.'
 		)
 
+		delete rOne.url  
+		rOne.data = {url: '/something/here'}
+		importMap = generator(manager)
+		
+		assert.equal(importMap,
+			'<script type="importmap">\n{"imports":{"@webhandle/moduleone":"data:text/javascript,export default {\\"url\\":\\"/something/here\\"}"}}\n</script>'
+			, 'Text does not match.'
+		)
 	})
 })

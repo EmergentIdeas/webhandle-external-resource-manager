@@ -10,9 +10,16 @@ export default function createImportmapGenerator(webhandle) {
 				continue
 			}
 			found = true
+			
+			if(resource.data && !resource.url) {
+				let content = `export default ${JSON.stringify(resource.data)}`
+				let url = `data:text/javascript,${content}`
+				resource.url = url
+			}
+			
 			let vrsc = ''
 			if(!webhandle.development && resource.cachable) {
-				if(resource.url.startsWith('data:')) {
+				if(resource.url && resource.url.startsWith('data:')) {
 					// We don't want to prefix a data url
 				}
 				else {

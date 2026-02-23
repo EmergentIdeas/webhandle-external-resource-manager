@@ -188,6 +188,27 @@ code to create an importmap based on mime type `application/javascript` with res
 so extensability is really easy if you wanted to add `meta` element or `title` element handling
 (or something).
 
+### Data URLs
+
+It's also possible to pass data as part of the provided resource. This is good if you need a configuration
+for the javascript on the page. Be careful with this though because it can result in some really big pages.
+
+```js
+externalResourceManager.provideResource({
+	mimeType: 'application/javascript'
+	, resourceType: 'module'
+	, name: '@webhandle/moduleone/configuration'
+	, data: {url: '/something/here'}
+})
+```
+It results in an importmap entry like:
+
+```
+"@webhandle/module-one/configuration":"data:text/javascript,export default {\"url\":\"/something/here\"}"
+```
+
+
+
 
 ### Integration
 
