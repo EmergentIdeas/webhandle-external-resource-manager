@@ -9,8 +9,13 @@ export default function createImportmapGenerator(webhandle) {
 			if(resource.rendered) {
 				continue
 			}
-			found = true
 			
+			if(manager.alreadyProvidedNames.has('module:' + resource.name)) {
+				resource.rendered = true
+				continue
+			}
+
+			found = true
 			if(resource.data && !resource.url) {
 				let content = `export default ${JSON.stringify(resource.data)}`
 				let url = `data:text/javascript,${content}`
@@ -28,6 +33,7 @@ export default function createImportmapGenerator(webhandle) {
 			}
 			if (resource.mimeType === 'application/javascript' && resource.resourceType === 'module') {
 				imports[resource.name] = vrsc + resource.url
+				manager.alreadyProvidedNames.add('module:' + resource.name)
 			}
 		}
 

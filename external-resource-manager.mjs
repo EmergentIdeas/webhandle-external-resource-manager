@@ -39,6 +39,11 @@ export default class ExternalResourceManager {
 	 * of the URLs we've already rendered here.
 	 */
 	alreadyRenderedUrls = new Set()
+	
+	/**
+	 * To make sure we don't provide a resource twice, track which ones we've already provided.
+	 */
+	alreadyProvidedNames = new Set()
 
 	constructor(options) {
 		Object.assign(this, options)
