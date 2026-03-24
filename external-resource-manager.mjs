@@ -58,6 +58,26 @@ export default class ExternalResourceManager {
 		}
 	}
 	
+	expandURLList(resource) {
+		let urls
+		if(typeof resource.url === 'string') {
+			urls = resource.url.split('\n').map(line => line.trim()).filter(line => !!line)
+		}
+		else if(Array.isArray(resource.url)) {
+			urls = resource.url
+		}
+		
+		if(!urls) {
+			return [resource]
+		}
+		if(urls.length === 1) {
+			return [resource]
+		}
+		
+		
+
+	}
+	
 	includeResource(resource) {
 		if(!resource) {
 			return
@@ -65,24 +85,27 @@ export default class ExternalResourceManager {
 		if(typeof resource === 'object' && resource instanceof Resource === false) {
 			resource = new Resource(resource)
 		}
-		this._noteSatisfies(resource)
-		if(this.alreadySatisfied.has(resource.url)) {
-			// We've already got a resource which satisfies this url
-			this.differentlySatisfiedResource.push(resource)
-			return
-		}
-		if(resource.satisfies && Array.isArray(resource.satisfies)) {
-			// We're going to remove any previously included resource which is satisfied
-			// by this resource
-			for(let included of this.includedResources) {
-				if(resource.satisfies.includes(included.url)) {
-					this.includedResources.delete(included)
-					this.differentlySatisfiedResource.push(resource)
-				}
-			}
+		let resources = this.expandURLList(resource)
+		for(let resource of resources) {
 			this._noteSatisfies(resource)
+			if(this.alreadySatisfied.has(resource.url)) {
+				// We've already got a resource which satisfies this url
+				this.differentlySatisfiedResource.push(resource)
+				return
+			}
+			if(resource.satisfies && Array.isArray(resource.satisfies)) {
+				// We're going to remove any previously included resource which is satisfied
+				// by this resource
+				for(let included of this.includedResources) {
+					if(resource.satisfies.includes(included.url)) {
+						this.includedResources.delete(included)
+						this.differentlySatisfiedResource.push(resource)
+					}
+				}
+				this._noteSatisfies(resource)
+			}
+			this.includedResources.add(resource)
 		}
-		this.includedResources.add(resource)
 	}
 	
 	provideResource(resource) {

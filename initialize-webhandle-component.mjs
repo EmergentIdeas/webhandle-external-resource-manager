@@ -16,6 +16,7 @@ initializeWebhandleComponent.templatePaths = ['views']
 
 initializeWebhandleComponent.setup = async function (webhandle, config) {
 	let compmanager = new ComponentManager()
+	compmanager.config = config
 
 	let generator = createImportmapGenerator(webhandle)
 	let cssRender = createTextCssRenderer(webhandle)
