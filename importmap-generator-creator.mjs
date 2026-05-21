@@ -17,7 +17,14 @@ export default function createImportmapGenerator(webhandle) {
 
 			found = true
 			if(resource.data && !resource.url) {
-				let content = `export default ${JSON.stringify(resource.data)}`
+				let d = JSON.stringify(resource.data)
+				// # in the value trigger a problem in the browser where it doesn't think #
+				// are valid for the types of URLs it's looking for. That's a little weird
+				// given that this is a data url. It's possible these values should be 
+				// fully URI encoded, but other values which would normally need that
+				// don't seem to cause problems.
+				d = d.split('#').join('%23')
+				let content = `export default ${d}`
 				let url = `data:text/javascript,${content}`
 				resource.url = url
 			}
